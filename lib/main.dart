@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,7 +9,7 @@ void main() {
         backgroundColor: Colors.red,
         appBar: AppBar(
           backgroundColor: Colors.red,
-          title: Text('Dice Abde'),
+          title: Center(child: Text('Dice Abde')),
         ),
         body: Dice(),
       ),
@@ -15,8 +17,22 @@ void main() {
   );
 }
 
-class Dice extends StatelessWidget {
+class Dice extends StatefulWidget {
   const Dice({Key? key}) : super(key: key);
+
+  @override
+  _DiceState createState() => _DiceState();
+}
+
+class _DiceState extends State<Dice> {
+  var l = Random().nextInt(6) + 1;
+  var r = Random().nextInt(6) + 1;
+  void changedice() {
+    setState(() => {
+          l = Random().nextInt(6) + 1,
+          r = Random().nextInt(6) + 1,
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +43,11 @@ class Dice extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: FlatButton(
-                onPressed: () => print('button 01'),
+                onPressed: () {
+                  changedice();
+                },
                 child: Image(
-                  image: AssetImage('images/dice1.png'),
+                  image: AssetImage('images/dice$l.png'),
                 ),
               ),
             ),
@@ -38,9 +56,11 @@ class Dice extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: FlatButton(
-                onPressed: () => print('button02'),
+                onPressed: () {
+                  changedice();
+                },
                 child: Image(
-                  image: AssetImage('images/dice2.png'),
+                  image: AssetImage('images/dice$r.png'),
                 ),
               ),
             ),
